@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Expoferia Agraria 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap">
+<style>
+:root{--bg:#f1f5ec;--sf:#fff;--ink:#1d2a1b;--mut:#5b6b57;--ln:#d3dccb;--pri:#2e6a3a;--onpri:#fff;--acc:#e6b73e;--soft:#e2ecd9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141c13;--sf:#1d2a1b;--ink:#eaf1e4;--mut:#9db295;--ln:#2f4030;--pri:#7cc388;--onpri:#10200f;--acc:#e6b73e;--soft:#26382a}}
+:root[data-theme="dark"]{--bg:#141c13;--sf:#1d2a1b;--ink:#eaf1e4;--mut:#9db295;--ln:#2f4030;--pri:#7cc388;--onpri:#10200f;--acc:#e6b73e;--soft:#26382a}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+header{padding:28px 20px 20px;border-bottom:6px solid var(--acc);background:var(--pri);color:var(--onpri)}
+.w{max-width:960px;margin:0 auto}
+h1{margin:0;font-size:clamp(1.9rem,6vw,3.2rem);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+header p{margin:8px 0 0;opacity:.9;max-width:60ch}
+main{padding:20px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+input[type=search]{flex:1 1 260px;font:inherit;padding:12px 14px;border:2px solid var(--ln);border-radius:10px;background:var(--sf);color:var(--ink)}
+input[type=search]:focus{outline:3px solid var(--acc);border-color:var(--pri)}
+.seg{display:flex;border:2px solid var(--pri);border-radius:10px;overflow:hidden}
+button{font:inherit;cursor:pointer;color:var(--ink)}
+.seg button{border:0;background:transparent;padding:10px 14px;color:var(--pri);font-weight:600}
+.seg button[aria-pressed=true]{background:var(--pri);color:var(--onpri)}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.lab{font-size:.85rem;color:var(--mut);margin:12px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1px solid var(--ln);background:var(--sf);border-radius:99px;padding:5px 13px}
+.chips button[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#1d2a1b;font-weight:600}
+.cnt{margin:16px 0 10px;color:var(--mut)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.card{background:var(--sf);border:1px solid var(--ln);border-left:6px solid var(--pri);border-radius:6px 12px 12px 6px;padding:14px 16px}
+.card h3{margin:0 0 4px;font-size:1.15rem;line-height:1.25}
+.sub{display:inline-block;background:var(--soft);color:var(--ink);border-radius:6px;padding:1px 9px;font-size:.85rem;font-weight:600;margin-bottom:8px}
+.card dl{margin:0;font-size:.93rem}
+.card dt{font-weight:600;display:inline}
+.card dd{display:inline;margin:0}
+.card div.r{margin:2px 0}
+.hs{margin:8px 0 0;padding:0;list-style:none}
+.hs li{padding:5px 0;border-top:1px dashed var(--ln);font-size:.92rem}
+.hs b{color:var(--pri)}
+details{margin-top:8px;font-size:.88rem;color:var(--mut)}
+summary{cursor:pointer;font-weight:600}
+.tbd{color:var(--mut);font-style:italic}
+.blk{margin:22px 0 8px;font-size:1.3rem;font-weight:800;border-bottom:3px solid var(--acc);display:inline-block}
+.row{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--ln)}
+.row .t{font-weight:800;color:var(--pri);font-variant-numeric:tabular-nums}
+.row small{display:block;color:var(--mut)}
+.empty{padding:30px;text-align:center;color:var(--mut);background:var(--sf);border:2px dashed var(--ln);border-radius:12px}
+mark{background:var(--acc);color:#1d2a1b;border-radius:3px}
+@media(max-width:480px){.row{grid-template-columns:1fr;gap:2px}}
+</style>
+</head>
+<body>
+<header><div class="w">
+<h1>Expoferia Agraria 2026</h1>
+<p>Actividades y horarios por asignatura. Buscá una actividad, filtrá por año o mirá la grilla de horarios.</p>
+</div></header>
+<main><div class="w">
+<div class="bar">
+<input type="search" id="q" placeholder="Buscar actividad, asignatura, docente o lugar…" aria-label="Buscar">
+<div class="seg" role="group" aria-label="Vista">
+<button id="v1" aria-pressed="true">Actividades</button>
+<button id="v2" aria-pressed="false">Horarios</button>
+</div>
+</div>
+<div class="lab">Buscar en</div>
+<div class="chips" id="sc"></div>
+<div class="lab">Año</div>
+<div class="chips" id="yc"></div>
+<div class="cnt" id="cnt" aria-live="polite"></div>
+<div id="out"></div>
+</div></main>
+<script>
+var D=[
+{m:"Producción vegetal",c:"1°",a:"Siembra de hortalizas de estación en macetas",r:"Elisa Brignole",l:"Cerca del edificio de la escuela (lugar a definir)",h:[],n:"Para los más chicos: cartelería original para que la interpreten los chicos, sector para pintar los carteles de las semillas y algún juego vinculado a las producciones de la escuela."},
+{m:"Lengua",c:"1°, 2° y 3°",a:"Presentación de publicidades, propagandas, podcast, fanzine y leyendas",r:"Paulina Lastfoigel y Sheila Caneo",l:"Televisor",h:[["11:00–12:30","Ana Mihaljevic, Fausta Botelli, Fermín Viglianco, Mihael, Camila Gerle, Mateo Inostroza, Matilda Fernández"],["14:00–15:30","Mateo Bustos, Camilo Alencastre, Liz Brunetti, Luz Parra, Ambar Pierluigy, Uriel"],["15:30–17:00","Maia Carrizo, Carmela Benedetti, Santino Godoy, Valentino Paravano, Camila Pérez Pizzi, Emilie San Martín"]]},
+{m:"Artística",c:"1°B",a:"Obra de teatro",r:"Lili Pérez",l:"Aula de sexto B",h:[],p:"Francesca Borgo, Narela Capdevila, Lucía Celestino, Pía Mella, Mercedes Díaz, Martín Vignau, Samir Ortega, Mateo Inostroza, Luciana Sacks"},
+{m:"Producción animal",c:"1°",a:"Características más importantes en cunicultura (sistema intensivo)",r:"Rodrigo Sánchez",l:"Corral de conejos",h:[],n:"Son muchos estudiantes: sólo 3 por horario.",p:"Benjamín Rojas, Nahia Mora, Isabella Munafo, Morena Salazar, Sol Kirchner, Luz Parra, Santino Godoy, Narela Salinas, Victoria Oviedo, Josefina Pierroni, Máximo Montani, Agustina Ibarguen, Malak Ortiz, Gala Pancani, Amaia Catril, Malena Dorn, Olivia Dalsasso, Fiorella Acuña, Olivia Cerda, Matilda Fernández, Ainara Casas, Liz Brunetti"},
+{m:"Producción vegetal",c:"2°",a:"Multiplicación de aromáticas con esquejes de romero y lavanda",r:"Elisa Brignole",l:"Sector fuera de la huerta, cerca del edificio (usar gazebo)",h:[],n:"Los participantes se llevan un plantín hecho por ellos. Quizás sumar venta de plantines y compost. Recursos: macetas, plantines, sustrato, video tutorial y póster impreso con pasos."},
+{m:"Química",c:"2°",a:"Modelos atómicos (maquetas)",r:"Lucía Schamme",l:"Stand",h:[]},
+{m:"Industrialización",c:"2°",a:"Presentación de infusiones ganadoras, degustación y venta",r:"Vanesa Rodel",l:"Mesa para degustación",h:[["Turno mañana","Osorio, Martínez, Resnik, Simon Martínez"],["13:00–15:00","Amaya, Campos, Rossi, Rossi J."],["15:00–17:00","Ocaña, Mardones, Teruel"]],n:"Recursos: teteras, pavas, vasos descartables y coladores de tela."},
+{m:"Horticultura y Química",c:"3°A",a:"Hidroponía",r:"Erik Colihuinca y Lucía Schamme",l:"A definir",h:[]},
+{m:"Horticultura",c:"3°B",a:"Digitalización del croquis y calendario de siembra de la huerta",r:"Erik Colihuinca",l:"Huerta",h:[]},
+{m:"Apicultura",c:"3°",a:"Habitantes y productos de la colmena, y dinámica poblacional",r:"Florencia Chialvo",l:"Mesa con colmena de vidrio",h:[["14:40–15:00",""],["15:40–16:00","El PDF dice «15:40 a 15:00»: confirmar hora de fin"]]},
+{m:"Industrialización",c:"3°",a:"Presentación y venta de productos saludables",r:"Vanesa Rodel",l:"Mesa de exposición por curso (si hay gazebo, afuera)",h:[["Turno mañana hasta 13:30","Guillermina, Daira, Carmela, Sofía, Karen, Lourdes"],["13:30–14:30","Camilo y Fermín"],["Hasta el cierre","Luana y Ana Laura"]],n:"Un estudiante por grupo."},
+{m:"Historia y Geografía",c:"4°B",a:"Sistema de riego",r:"Pedro Durán y Mónica Marcantoni",l:"Aula, televisor",h:[["11:30","Media hora"],["14:30","Media hora"],["15:30","Media hora"]]},
+{m:"Geografía",c:"4°A",a:"Circuito yerbatero",r:"Mónica Marcantoni",l:"Aula, televisor o proyector",h:[["11:00","Media hora"],["14:00","Media hora"],["15:00","Media hora"]]},
+{m:"Cultivos protegidos",c:"4°A",a:"Gírgolas",r:"Erik Colihuinca",l:"A definir",h:[]},
+{m:"Cultivos protegidos",c:"4°B",a:"Estructuras de protección",r:"Erik Colihuinca",l:"A definir",h:[]},
+{m:"Cultivos protegidos",c:"4°A",a:"Riego automatizado",r:"Erik Colihuinca",l:"A definir",h:[]},
+{m:"Ovinos",c:"4°",a:"Técnica de esquila, determinación de edad, corte de pezuñas y resultados de la nueva cruza con el carnero Hampshire",r:"Florencia Chialvo",l:"Corral de ovinos",h:[["15:00–15:20","4°A"],["16:00–16:20","4°B"]],p:"Sgró, Zudich, Molina"},
+{m:"Agroecología",c:"4°",a:"Monitoreo, rotación, asociación de cultivos y manejos agroecológicos",r:"Elisa Brignole",l:"Huerta y póster diseñado por alumnos de 4°A",h:[]},
+{m:"Avicultura",c:"4°",a:"Tipos de alimentos de gallinas y pollitos bb",r:"Joaquín Dalsasso",l:"Mesa de entrada a la granja, debajo del cartel",h:[["15:20–15:40","4°A"],["16:00–16:20","4°B"]]},
+{m:"Práctica de 5° año",c:"5°",a:"Aplicación de fertilizantes foliares",r:"Franco Ruiz y Laura",l:"Tractor y pulverizadora",h:[["11:00–13:00","Zoe Catril, Donato, Deladio"],["14:00–17:00","Agustina Villagrán, Isabella Pirola, Morena Rolan, Rosario Mella, Keila Danef, Mía Bussin"]]},
+{m:"Mantenimiento",c:"5°",a:"Exposición de manga, chata y comederos",r:"Leopoldo Torres",l:"Espacio de taller",h:[]},
+{m:"Forrajes",c:"5°",a:"Exposición de forrajes",r:"Lucas Arias",l:"Aula, televisor",h:[]},
+{m:"Biología aplicada",c:"6°",a:"Extracción de ADN de distintos tejidos vegetales",r:"Eugenia Graff",l:"Laboratorio",h:[],p:"6°A: Erik, Camilo, Nahuel, Sofía, Alana, Paula. 6°B: Juana, Valentina H, Juan, Emma, Lucas, Camilo M, Sofía, Magalí, Rocío, Valentina M"},
+{m:"Laboratorio",c:"6°",a:"Laboratorio de suelos",r:"Gise Alessandroni y Lucía Schamme",l:"Laboratorio",h:[]},
+{m:"Deshidratados (6° año)",c:"6°",a:"Deshidratados",r:"Juan Laiglecia",l:"Laboratorio",h:[["11:30–13:00","Joaquín Ruiz Díaz, Santiago S."],["14:00–15:30","Paula, Alana"],["15:00–17:00","Joaquín P., Francisco"]]},
+{m:"Formulación de proyectos",c:"6°",a:"Exposición de proyectos",r:"Romina Pedreschi",l:"Aula, televisor",h:[]}
+];
+var scope="all",yr=0,view=1,$=function(i){return document.getElementById(i)};
+function nz(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"")}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function hl(s,q){s=esc(s);if(!q)return s;var i=nz(s).indexOf(q);return i<0?s:s.slice(0,i)+"<mark>"+s.slice(i,i+q.length)+"</mark>"+s.slice(i+q.length)}
+function years(c){return(c.match(/\d/g)||[]).map(Number)}
+function match(d,q){
+ if(yr&&years(d.c).indexOf(yr)<0)return false;
+ if(!q)return true;
+ var h=d.h.map(function(x){return x[0]+" "+x[1]}).join(" ");
+ var t=scope=="act"?d.a:scope=="asig"?d.m+" "+d.c:[d.m,d.c,d.a,d.r,d.l,d.n||"",d.p||"",h].join(" ");
+ return nz(t).indexOf(q)>=0}
+function chips(id,list,get,set){
+ $(id).innerHTML=list.map(function(x){return'<button aria-pressed="'+(get()==x[0])+'" data-v="'+x[0]+'">'+x[1]+'</button>'}).join("");
+ $(id).onclick=function(e){var b=e.target.closest("button");if(b){set(b.dataset.v);draw()}}}
+function card(d,q){
+ var hs=d.h.length?'<ul class="hs">'+d.h.map(function(x){return'<li><b>'+esc(x[0])+'</b>'+(x[1]?' · '+esc(x[1]):'')+'</li>'}).join("")+'</ul>':'<p class="tbd">Horario a definir</p>';
+ return'<article class="card"><span class="sub">'+hl(d.m,q)+' · '+esc(d.c)+'</span><h3>'+hl(d.a,q)+'</h3><dl>'
+ +'<div class="r"><dt>Responsable: </dt><dd>'+hl(d.r,q)+'</dd></div>'
+ +'<div class="r"><dt>Lugar y recursos: </dt><dd>'+hl(d.l,q)+'</dd></div></dl>'
+ +(d.n?'<p style="margin:6px 0 0;font-size:.9rem">'+esc(d.n)+'</p>':'')
+ +hs+(d.p?'<details><summary>Estudiantes</summary>'+esc(d.p)+'</details>':'')+'</article>'}
+function mins(s){var m=s.match(/(\d{1,2}):(\d\d)/);return m?m[1]*60+ +m[2]:null}
+function draw(){
+ var q=nz($("q").value.trim()),L=D.filter(function(d){return match(d,q)});
+ $("v1").setAttribute("aria-pressed",view==1);$("v2").setAttribute("aria-pressed",view==2);
+ chips("sc",[["all","Todo"],["act","Actividad"],["asig","Asignatura"]],function(){return scope},function(v){scope=v});
+ chips("yc",[[0,"Todos"],[1,"1°"],[2,"2°"],[3,"3°"],[4,"4°"],[5,"5°"],[6,"6°"]],function(){return yr},function(v){yr=+v});
+ $("cnt").textContent=L.length+(L.length==1?" actividad":" actividades");
+ if(!L.length){$("out").innerHTML='<div class="empty">No hay actividades con esa búsqueda. Probá con otra palabra o cambiá el año.</div>';return}
+ if(view==1){$("out").innerHTML='<div class="grid">'+L.map(function(d){return card(d,q)}).join("")+'</div>';return}
+ var rows=[],tbd=[];
+ L.forEach(function(d){if(!d.h.length)tbd.push(d);d.h.forEach(function(x){var m=mins(x[0]);rows.push({m:m===null?(/ma[nñ]ana/i.test(x[0])?600:1e4):m,t:x[0],n:x[1],d:d})})});
+ rows.sort(function(a,b){return a.m-b.m});
+ function sec(t,r){return r.length?'<h2 class="blk">'+t+'</h2>'+r.map(function(x){return'<div class="row"><div class="t">'+esc(x.t)+'</div><div><b>'+hl(x.d.a,q)+'</b><small>'+hl(x.d.m,q)+' · '+esc(x.d.c)+' · '+hl(x.d.l,q)+'</small>'+(x.n?'<small>'+esc(x.n)+'</small>':'')+'</div></div>'}).join(""):""}
+ $("out").innerHTML=sec("Mañana (hasta las 13:00)",rows.filter(function(x){return x.m<780}))+sec("Tarde",rows.filter(function(x){return x.m>=780&&x.m<1e4}))+sec("Hasta el cierre",rows.filter(function(x){return x.m==1e4}))
+ +(tbd.length?'<h2 class="blk">Horario a definir</h2>'+tbd.map(function(d){return'<div class="row"><div class="t tbd">A definir</div><div><b>'+hl(d.a,q)+'</b><small>'+hl(d.m,q)+' · '+esc(d.c)+' · '+hl(d.l,q)+'</small></div></div>'}).join(""):"")}
+$("q").oninput=draw;
+$("v1").onclick=function(){view=1;draw()};
+$("v2").onclick=function(){view=2;draw()};
+draw();
+</script>
+</body>
+</html>
