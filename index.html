@@ -76,6 +76,16 @@ mark{background:var(--lime);color:#16241a;border-radius:3px;padding:0 2px}
 @keyframes splashLoad{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes splashOut{to{opacity:0;visibility:hidden}}
 @media(prefers-reduced-motion:reduce){#splash,#splash *{animation-duration:.01s!important;animation-delay:0s!important}#splash{animation:splashOut .3s ease 1.2s forwards!important}}
+@media(max-width:600px){
+.bar{flex-direction:column;gap:12px}
+input[type=search]{flex:none;width:100%}
+.seg{width:100%}
+.seg button{flex:1;padding:15px 8px;font-size:1.12rem;text-align:center}
+#sc,#yc{flex-wrap:nowrap;gap:6px}
+#sc button,#yc button{flex:1 1 0;min-width:0;padding:9px 4px;text-align:center;white-space:nowrap;font-size:.9rem}
+#yc button{font-size:.86rem}
+#yc button[data-v="0"]{flex:1.6 1 0}
+}
 </style>
 </head>
 <body>
@@ -157,7 +167,7 @@ function draw(){
  var q=nz($("q").value.trim()),L=D.filter(function(d){return match(d,q)});
  $("v1").setAttribute("aria-pressed",view==1);$("v2").setAttribute("aria-pressed",view==2);
  chips("sc",[["all","🔎 Todo"],["act","🎯 Actividad"],["asig","📚 Asignatura"]],function(){return scope},function(v){scope=v});
- chips("yc",[[0,"🎓 Todos"],[1,"1°"],[2,"2°"],[3,"3°"],[4,"4°"],[5,"5°"],[6,"6°"]],function(){return yr},function(v){yr=+v});
+ chips("yc",[[0,"Todos"],[1,"1°"],[2,"2°"],[3,"3°"],[4,"4°"],[5,"5°"],[6,"6°"]],function(){return yr},function(v){yr=+v});
  $("cnt").textContent=L.length+(L.length==1?" actividad":" actividades");
  if(!L.length){$("out").innerHTML='<div class="empty"><span class="big">🌾</span>No hay actividades con esa búsqueda. Probá con otra palabra o cambiá el año.</div>';return}
  if(view==1){$("out").innerHTML='<div class="grid">'+L.map(function(d){return card(d,q)}).join("")+'</div>';return}
