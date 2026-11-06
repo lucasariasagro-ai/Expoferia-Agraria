@@ -125,6 +125,126 @@ main{padding:22px 16px 30px}
 @keyframes splashLoad{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes splashOut{to{opacity:0;visibility:hidden}}
 @media(prefers-reduced-motion:reduce){#splash,#splash *{animation-duration:.01s!important;animation-delay:0s!important}#splash{animation:splashOut .3s ease 1.2s forwards!important}}
+
+/* --- Renovación visual ExpoFeria: más ágil, cálida y actual --- */
+:root{
+ --bg:#0d1912;--sf:#14251a;--ink:#edf5e9;--mut:#9caf9f;--ln:#294332;
+ --pri:#35a853;--onpri:#07190d;--act:#c6ea3a;--onact:#14200b;
+ --sh:0 10px 28px -18px rgba(0,0,0,.75);
+}
+@media(prefers-color-scheme:light){
+ :root:not([data-theme="dark"]){
+  --bg:#f1f6ed;--sf:#fff;--ink:#17271b;--mut:#617265;--ln:#d7e3d4;
+  --pri:#278b43;--onpri:#fff;--act:#bce638;--onact:#17230d;
+  --sh:0 8px 24px -18px rgba(22,55,30,.45);
+ }
+}
+header{
+ padding:24px 20px 29px;
+ border-radius:0 0 30px 30px;
+ background:linear-gradient(118deg,#104d27 0%,#218b3c 57%,#83bd2d 100%);
+}
+header .w:first-of-type{
+ flex-direction:column;text-align:center;gap:13px;
+}
+.logo{
+ width:88px;height:88px;
+ box-shadow:0 0 0 4px rgba(255,255,255,.22),0 12px 28px -15px rgba(0,0,0,.65);
+}
+header h1{
+ font-size:clamp(2rem,7vw,3.25rem);
+ line-height:1.02;letter-spacing:-.045em;
+ text-wrap:balance;
+}
+header p{font-size:.96rem;font-weight:500}
+.evt{
+ margin-top:20px;border-radius:17px;padding:11px 14px;
+ background:rgba(7,37,17,.22);border:1px solid rgba(255,255,255,.2);
+}
+.cd div{border-radius:11px}
+main{padding:23px 20px 34px}
+.bar{gap:10px;margin-bottom:4px}
+input[type=search]{
+ min-height:54px;padding:13px 16px 13px 46px;
+ border:1px solid var(--ln);border-radius:17px;
+ background:var(--sf);box-shadow:none;
+}
+input[type=search]:focus{outline:2px solid color-mix(in srgb,var(--act) 65%,transparent);border-color:var(--act)}
+.seg{
+ border:1px solid color-mix(in srgb,var(--pri) 65%,var(--ln));
+ border-radius:17px;box-shadow:none;background:var(--sf);
+}
+.seg button{padding:11px 17px;color:var(--mut);font-size:1rem;transition:background .18s,color .18s}
+.seg button[aria-pressed=true]{background:var(--pri);color:#fff}
+.lab{margin:17px 0 7px;font-size:.82rem;letter-spacing:.015em}
+.chips{gap:7px}
+.chips button{
+ border:1px solid var(--ln);background:var(--sf);
+ padding:7px 15px;transition:background .18s,border-color .18s,transform .18s;
+}
+.chips button:active{transform:scale(.97)}
+.chips button[aria-pressed=true]{
+ background:var(--act);border-color:var(--act);color:var(--onact);
+}
+#yc button[data-v]{border-color:#356b77}
+#yc button[data-v][aria-pressed=true]{background:#16879a;border-color:#16879a;color:#fff}
+.fv{
+ margin-top:16px;width:auto;min-height:48px;padding:8px 19px;
+ border:1px solid #dcae22;background:transparent;color:var(--ink);
+ border-radius:15px;box-shadow:none;
+}
+.fv b{background:#e8b51c;color:#241a04}
+.fv[aria-pressed=true]{background:#e8b51c;color:#241a04}
+.cnt{margin:21px 0 13px;font-size:1.03rem}
+.grid{gap:14px}
+.card{
+ border:1px solid color-mix(in srgb,var(--yc,var(--pri)) 24%,var(--ln));
+ border-top:4px solid var(--yc,var(--pri));border-radius:19px;
+ padding:17px 17px 18px;box-shadow:var(--sh);
+ background:linear-gradient(145deg,color-mix(in srgb,var(--yc,var(--pri)) 9%,var(--sf)),var(--sf) 52%);
+}
+.card:hover{transform:translateY(-2px)}
+.ic{width:50px;height:50px;border-radius:15px;box-shadow:none}
+.top{gap:12px;margin-bottom:10px}
+.card h3{font-size:1.13rem;line-height:1.28}
+.sub{font-size:.78rem;padding:3px 10px;border:0}
+.st{top:13px;right:11px;width:36px;height:36px}
+.r{font-size:.91rem;margin:5px 0}
+.hs li{padding:7px 0}
+.ft{padding-top:22px}
+#up{background:var(--act);color:var(--onact)}
+@media(max-width:600px){
+ header{padding:20px 16px 25px;border-radius:0 0 26px 26px}
+ .logo{width:88px;height:88px}
+ header .w:first-of-type{gap:12px}
+ header h1{font-size:clamp(2.05rem,8vw,2.75rem)}
+ main{padding:19px 16px 28px}
+ .bar{flex-direction:column;gap:10px}
+ .sb{width:100%;flex:none}
+ .seg{width:100%}
+ .seg button{flex:1;padding:11px 7px;font-size:1rem}
+ #sc,#yc{gap:6px}
+ #sc button,#yc button{padding:8px 4px;font-size:.86rem}
+ #yc button{font-size:.84rem}
+ .fv{width:100%;justify-content:center}
+ .cd{gap:6px}
+ .cd div{padding:6px 5px}
+ .card{padding:16px 15px 17px}
+}
+
+
+/* Se conserva la tipografía original del título Expoferia Agraria 2026 */
+header h1{
+ font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;
+ font-weight:800;
+ font-size:clamp(2.2rem,7vw,4rem);
+ line-height:1.02;
+ letter-spacing:-.03em;
+}
+@media(max-width:600px){
+ header h1{font-size:clamp(2.2rem,7vw,4rem);letter-spacing:-.03em}
+}
+
 </style>
 </head>
 <body>
