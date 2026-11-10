@@ -307,6 +307,22 @@ header.loop>.w:first-of-type{animation:hdContent 12s linear infinite}
 header.loop .iveil{animation:hdVeil 12s ease infinite}
 header.loop .ilogo{animation:hdLogo 12s linear infinite}
 header.loop .ititle{animation:hdTitle 12s ease-in-out infinite}}
+/* brillo que recorre el borde de los botones de vista */
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+.tab{position:relative}
+.tab::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:2px;pointer-events:none;opacity:0;background:conic-gradient(from var(--ang),transparent 0 90%,rgba(34,197,94,.42) 95%,transparent 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.tab[aria-pressed=true]::after{background:conic-gradient(from var(--ang),transparent 0 90%,rgba(190,230,60,.6) 95%,transparent 100%)}
+/* sin selección: un solo brillo recorre los tres (3 s c/u). Con selección: gira sin parar en el botón elegido */
+@keyframes tabSpin{0%{--ang:0deg;opacity:0}3%{opacity:1}30.3%{opacity:1}33.33%{--ang:360deg;opacity:0}100%{--ang:360deg;opacity:0}}
+@keyframes tabSpinOne{from{--ang:0deg;opacity:1}to{--ang:360deg;opacity:1}}
+@media(prefers-reduced-motion:no-preference){
+.tabs:not(:has([aria-pressed=true])) .tab::after{animation:tabSpin 9s linear infinite}
+.tabs:not(:has([aria-pressed=true])) #v1::after{animation-delay:0s}
+.tabs:not(:has([aria-pressed=true])) #v2::after{animation-delay:-6s}
+.tabs:not(:has([aria-pressed=true])) #v3::after{animation-delay:-3s}
+.tabs .tab::after{animation:none;opacity:0}
+.tabs:not(:has([aria-pressed=true])) .tab::after{opacity:0}
+.tabs .tab[aria-pressed=true]::after{opacity:1;animation:tabSpinOne 4s linear infinite;animation-delay:0s}}
 </style>
 </head>
 <body>
