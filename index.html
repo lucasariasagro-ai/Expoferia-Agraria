@@ -331,10 +331,17 @@ header.loop .ititle{animation:hdTitle 12s ease-in-out infinite}}
 .wa:focus-visible{outline:3px solid #128c7e;outline-offset:3px}
 #up{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
 @media(prefers-reduced-motion:reduce){.wa{transition:none}}
-/* botón estación agroclimática (azul, sobre el de WhatsApp) */
-.wx{background:#1e88e5;bottom:calc(80px + env(safe-area-inset-bottom,0px))}
-.wx:focus-visible{outline-color:#0d47a1}
-#up{bottom:calc(144px + env(safe-area-inset-bottom,0px))}
+/* tira de la estación agroclimática */
+.wxbar{display:flex;align-items:center;gap:14px;margin:28px 0 8px;padding:12px 16px;border-radius:20px;text-decoration:none;color:var(--ink);background:linear-gradient(90deg,rgba(30,136,229,.26),rgba(30,136,229,.08));border:1px solid rgba(66,165,245,.5);box-shadow:0 10px 24px -16px rgba(30,136,229,.8);transition:transform .2s,border-color .2s}
+.wxbar:hover{transform:translateY(-2px);border-color:#42a5f5}
+.wxbar:focus-visible{outline:3px solid #42a5f5;outline-offset:3px}
+.wxi{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:14px;background:#1e88e5;color:#fff}
+.wxt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.wxt b{font-size:1.02rem;font-weight:700;line-height:1.2}
+.wxt small{font-size:.86rem;color:var(--mut);line-height:1.3}
+.wxo{flex:none;color:#64b5f6}
+@media(max-width:600px){.wxbar{gap:12px;padding:10px 14px;border-radius:18px;margin-bottom:16px}.wxi{width:40px;height:40px;border-radius:12px}}
+@media(prefers-reduced-motion:reduce){.wxbar{transition:none}}
 </style>
 </head>
 <body>
@@ -357,10 +364,14 @@ header.loop .ititle{animation:hdTitle 12s ease-in-out infinite}}
 <div class="flt"><div class="chips" id="sc"></div><div class="chips" id="yc"></div></div>
 <div class="cnt" id="cnt" aria-live="polite"></div>
 <div id="out"></div>
+<a class="wxbar" href="https://www.ecowitt.net/home/share?authorize=CUS3G9" target="_blank" rel="noopener" aria-label="Estación agroclimática: consultá el clima de la escuela (se abre en una pestaña nueva)">
+<span class="wxi"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14.76V4a2 2 0 0 0-4 0v10.76a4 4 0 1 0 4 0z"/><path d="M12 9v7" stroke-width="2.4"/><circle cx="12" cy="17.2" r="1.3" fill="currentColor" stroke="none"/><path d="M17 6h2.5M17 9.5h1.8"/></svg></span>
+<span class="wxt"><b>Estación agroclimática</b><small>Consultá el clima de la escuela</small></span>
+<svg class="wxo" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+</a>
 </div></main>
 <footer class="ft"><img id="fl" alt=""><div><b>Escuela Agraria Alto Valle Este</b>Expoferia Agraria 2026</div></footer>
 <a id="wa" class="wa" href="https://wa.me/?text=%2AExpoferia%20Agraria%202026%2A%20%C2%B7%20Escuela%20Agraria%20Alto%20Valle%20Este%20%C2%B7%2015%20de%20noviembre%0AMir%C3%A1%20el%20programa%20de%20actividades%2C%20horarios%20y%20plano%3A%20https%3A%2F%2Flucasariasagro-ai.github.io%2FExpoferia-Agraria%2F" target="_blank" rel="noopener" aria-label="Compartir por WhatsApp" title="Compartir por WhatsApp"><svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
-<a id="wx" class="wa wx" href="https://www.ecowitt.net/home/share?authorize=CUS3G9" target="_blank" rel="noopener" aria-label="Ver la estación agroclimática" title="Estación agroclimática"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14.76V4a2 2 0 0 0-4 0v10.76a4 4 0 1 0 4 0z"/><path d="M12 9v7" stroke-width="2.4"/><circle cx="12" cy="17.2" r="1.3" fill="currentColor" stroke="none"/><path d="M17 6h2.5M17 9.5h1.8"/></svg></a>
 <button id="up" aria-label="Volver arriba" data-i="up"></button>
 <script>
 const D=[
