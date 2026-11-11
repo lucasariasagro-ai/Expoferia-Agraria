@@ -359,6 +359,8 @@ header.loop .ispc{animation-delay:.0s}}
 #up{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
 @media(prefers-reduced-motion:reduce){.wa{transition:none}}
 main{padding-bottom:16px}
+.tab .ti{background:rgba(66,165,245,.16);color:#64b5f6}
+.tab[aria-pressed=true] .ti{background:#1e88e5;color:#fff}
 /* tira de la estación agroclimática */
 .wxbar{display:flex;align-items:center;gap:14px;margin:28px 0 0;padding:12px 16px;border-radius:20px;text-decoration:none;color:var(--ink);background:linear-gradient(90deg,rgba(30,136,229,.26),rgba(30,136,229,.08));border:1px solid rgba(66,165,245,.5);box-shadow:0 10px 24px -16px rgba(30,136,229,.8);transition:transform .2s,border-color .2s}
 .wxbar:hover{transform:translateY(-2px);border-color:#42a5f5}
