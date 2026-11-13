@@ -413,6 +413,8 @@ const D=[
 {m:"Química",c:"2°",a:"Modelos atómicos (maquetas)",r:"Lucía Schamme",l:"Stand galería",h:[["11:00–17:00",""]]},
 {m:"Industrialización",c:"2°",a:"Presentación de infusiones ganadoras. Degustación y venta.",r:"Vanesa Rodel",l:"Comedor",h:[["Turno mañana","Osorio, Martinez, Resnik, Simon Martinez"],["13:00–15:00","Amaya, Campos, Rossi, Rossi J."],["15:00–17:00","Ocaña, Mardones, Teruel"]]},
 {m:"Horticultura",c:"3°B",a:"Calendario de siembra",r:"Erik Colihuinca",l:"Huerta",h:[["14:30",""]]},
+{m:"Física – Química",c:"3°",a:"Hidrólisis del agua y energía solar",r:"Lucas Arias y Lucía Schamme",l:"Laboratorio",h:[],p:"Colihuinca, Montecino, Cerezuela, Paloni, Fuentes, Centurion"},
+{m:"Maquinaria",c:"3°",a:"Tractores",r:"",l:"Taller",h:[],p:"Cerezuela, Deblasi"},
 {m:"Apicultura",c:"3°",a:"Diferentes habitantes y productos de la colmena y dinámica poblacional",r:"Florencia Chialvo",l:"Camino a Granja",h:[["14:40–15:00",""],["15:00–15:40",""]]},
 {m:"Industrialización",c:"3°",a:"Presentación y venta de productos saludables realizados por los estudiantes",r:"Vanesa Rodel",l:"Comedor",h:[["Turno mañana hasta 13:30","Guillermina, Daira, Carmela, Sofia, Karen, Lourdes"],["13:30–14:30","Camilo y Fermin"],["Hasta el cierre","Luana y Ana Laura"]]},
 {m:"Historia y Geografía",c:"4°B",a:"Sistema de riego",r:"Pedro Durán y Mónica Marcantoni",l:"Aula 1 (Ala Norte)",h:[["11:30","Genaro, Fabricio, Nicolás I, Delfina, Benjamín, Julieta"],["14:30","Giuliano, Isabel, Martina, Nicolás O, Giuliano P, Yanina"],["15:30","Paula, Lucio, Juan, Ana, Thiago, Nelson"]]},
@@ -470,7 +472,7 @@ cal:'<path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/>',
 up:'<path d="M12 19V5M5 12l7-7 7 7"/>',
 map:'<path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14"/>'};
 const ic=(n,s=20)=>`<svg viewBox="0 0 24 24" width="${s}" height="${s}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[n]||P.sprout}</svg>`;
-const MAP=[[/girgola/,"mush"],[/estructuras/,"house"],[/riego|hidropon/,"drop"],[/aromatic|yerba/,"leaf"],[/infusion/,"cup"],[/saludables|deshidrat/,"apple"],[/conejo|cunicul|ovino|esquila/,"paw"],[/avicultura|gallinas/,"egg"],[/apicultura|colmena/,"hex"],[/agroecolog/,"cycle"],[/fertilizantes/,"tractor"],[/mantenimiento/,"wrench"],[/maiz/,"wheat"],[/adn|biolog/,"dna"],[/suelos/,"layers"],[/laboratorio|atomicos|quimica/,"flask"],[/proyectos/,"chart"],[/teatro|artistica/,"mask"],[/lengua|podcast/,"book"],[/croquis|horticultura/,"grid"],[/hortalizas|vegetal/,"sprout"],[/historia/,"pin"]];
+const MAP=[[/girgola/,"mush"],[/estructuras/,"house"],[/riego|hidropon/,"drop"],[/aromatic|yerba/,"leaf"],[/infusion/,"cup"],[/saludables|deshidrat/,"apple"],[/conejo|cunicul|ovino|esquila/,"paw"],[/avicultura|gallinas/,"egg"],[/apicultura|colmena/,"hex"],[/agroecolog/,"cycle"],[/fertilizantes|tractor|maquinaria/,"tractor"],[/mantenimiento/,"wrench"],[/maiz/,"wheat"],[/adn|biolog/,"dna"],[/suelos/,"layers"],[/laboratorio|atomicos|quimica/,"flask"],[/proyectos/,"chart"],[/teatro|artistica/,"mask"],[/lengua|podcast/,"book"],[/croquis|horticultura/,"grid"],[/hortalizas|vegetal/,"sprout"],[/historia/,"pin"]];
 const icon=d=>{const t=nz(d.m+" "+d.a);for(const [r,n] of MAP)if(r.test(t))return n;return"sprout"};
 document.querySelectorAll("[data-i]").forEach(e=>e.innerHTML=ic(e.dataset.i,e.id==="up"?24:20));
 let scope="all",yr=0,view=0,favOnly=false,fav={};
@@ -487,10 +489,10 @@ function match(d,q){
 function chips(id,list,get,set){
  $(id).innerHTML=list.map(x=>`<button aria-pressed="${get()==x[0]}" data-v="${x[0]}">${x[1]}</button>`).join("");
  $(id).onclick=e=>{const b=e.target.closest("button");if(b){set(b.dataset.v);draw()}}}
-const sel=(id,list,isOn,on)=>{$(id).innerHTML=list.map(x=>`<button aria-pressed="${isOn(x[0])}" data-v="${x[0]}">${x[1]}</button>`).join("");$(id).onclick=e=>{const b=e.target.closest("button");if(b){on(b.dataset.v);if(!view||view==3)view=1;draw()}}};
+const sel=(id,list,isOn,on)=>{$(id).innerHTML=list.map(x=>`<button aria-pressed="${isOn(x[0])}" data-v="${x[0]}">${x[1]}</button>`).join("");$(id).onclick=e=>{const b=e.target.closest("button");if(b){on(b.dataset.v);if(!view||view==3)view=1;draw();if(id=="yc")goTo()}}};
 function card(d,q,i){
  const hs=d.h.length?`<ul class="hs">${d.h.map(x=>`<li>${ic("clock",16)}<span><b>${esc(x[0])}</b>${x[1]?" · "+esc(x[1]):""}</span></li>`).join("")}</ul>`:`<p class="tbd">${ic("clock",16)} Horario a definir</p>`;
- return `<article class="card ${yc(d)}" style="--i:${Math.min(i,12)}"><div class="top"><span class="ic">${ic(icon(d),30)}</span><div><span class="sub">${hl(d.m,q)} · ${esc(d.c)}</span><h3>${hl(d.a,q)}</h3></div></div><div class="r">${ic("user",16)}<span>${hl(d.r,q)}</span></div><div class="r">${ic("pin",16)}<span>${hl(d.l,q)}</span></div>${hs}${d.p?`<details><summary>${ic("users",16)} Estudiantes</summary>${esc(d.p)}</details>`:""}</article>`}
+ return `<article class="card ${yc(d)}" style="--i:${Math.min(i,12)}"><div class="top"><span class="ic">${ic(icon(d),30)}</span><div><span class="sub">${hl(d.m,q)} · ${esc(d.c)}</span><h3>${hl(d.a,q)}</h3></div></div>${d.r?`<div class="r">${ic("user",16)}<span>${hl(d.r,q)}</span></div>`:""}<div class="r">${ic("pin",16)}<span>${hl(d.l,q)}</span></div>${hs}${d.p?`<details><summary>${ic("users",16)} Estudiantes</summary>${esc(d.p)}</details>`:""}</article>`}
 function agenda(L,q){
  const G={};
  const add=(k,lab,it)=>{(G[k]=G[k]||{lab,items:[]}).items.push(it)};
