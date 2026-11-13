@@ -516,9 +516,11 @@ function draw(anim=true){
  if(!L.length){out.innerHTML=`<div class="empty">${favOnly&&!q?"Todavía no marcaste favoritas. Tocá la estrella de una actividad para guardarla.":"No hay actividades con esa búsqueda. Probá con otra palabra o cambiá el año."}</div>`;return}
  out.innerHTML=view==1?`<div class="grid">${L.map((d,i)=>card(d,q,i)).join("")}</div>`:agenda(L,q)}
 $("q").oninput=()=>{if((!view||view==3)&&$("q").value.trim())view=1;draw()};
-$("v1").onclick=()=>{view=view==1?0:1;draw()};
-$("v2").onclick=()=>{view=view==2?0:2;draw()};
-$("v3").onclick=()=>{view=view==3?0:3;draw()};
+const goTo=()=>{requestAnimationFrame(()=>{const el=$("cnt").textContent?$("cnt"):$("out"),t=el.getBoundingClientRect().top+scrollY-14;
+ scrollTo({top:Math.max(0,t),behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})})};
+$("v1").onclick=()=>{view=view==1?0:1;draw();if(view)goTo()};
+$("v2").onclick=()=>{view=view==2?0:2;draw();if(view)goTo()};
+$("v3").onclick=()=>{view=view==3?0:3;draw();if(view)goTo()};
 $("up").onclick=()=>window.scrollTo({top:0});
 addEventListener("scroll",()=>$("up").classList.toggle("show",scrollY>500),{passive:true});
 const DIA="2026-11-15";
